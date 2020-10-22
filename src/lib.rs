@@ -31,13 +31,13 @@ fn encode_key(secret: &[u8]) -> JsString {
 }
 
 #[wasm_bindgen(catch)]
-pub fn diffie_hellman(public_key: &str, secret_key: &str) -> Result<JsString, JsValue> {
+pub fn diffie_hellman(secret_key: &str, public_key: &str) -> Result<JsString, JsValue> {
     let mut secret = [0; KEY_SIZE];
     let mut public = [0; KEY_SIZE];
-    let _ = b64_decode(public_key.as_bytes(), &mut public).map_err(|_| JsError::new("Base64"))?;
     let _ = b64_decode(secret_key.as_bytes(), &mut secret).map_err(|_| JsError::new("Base64"))?;
-    let public = PublicKey::from(public);
+    let _ = b64_decode(public_key.as_bytes(), &mut public).map_err(|_| JsError::new("Base64"))?;
     let secret = StaticSecret::from(secret);
+    let public = PublicKey::from(public);
     Ok(encode_key(&secret.diffie_hellman(&public).to_bytes()))
 }
 
