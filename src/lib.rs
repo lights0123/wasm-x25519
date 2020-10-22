@@ -17,12 +17,12 @@ const KEY_SIZE: usize = 32;
 const KEY_SIZE_BASE64: usize = KEY_SIZE * 4 / 3 + 4;
 
 fn b64_encode<'a>(input: &[u8], out: &'a mut [u8]) -> &'a mut [u8] {
-    let written = base64::encode_config_slice(input, base64::URL_SAFE, out);
+    let written = base64::encode_config_slice(input, base64::STANDARD, out);
     &mut out[..written]
 }
 
 fn b64_decode(input: &[u8], out: &mut [u8]) -> Result<usize, base64::DecodeError> {
-    base64::decode_config_slice(input, base64::URL_SAFE, out)
+    base64::decode_config_slice(input, base64::STANDARD, out)
 }
 
 fn encode_key(secret: &[u8]) -> JsString {
