@@ -2,20 +2,12 @@
 
 <head>
   <meta charset="utf-8" />
-  <script type="importmap">
-    {
-      "imports": {
-        "wasm_x25519": "./pkg/wasm_x25519.js"
-      }
-    }
-  </script>
 </head>
 
 <body id="body"></body>
 <script type="module">
-  import { generate_keypair, diffie_hellman, default as init } from 'wasm_x25519';
-
-  init('./pkg/wasm_x25519_bg.wasm').then(() => {
+  import { generate_keypair, diffie_hellman, default as init } from './pkg/wasm_x25519.js';
+  init().then(() => {
     const start = new Date();
     for (let index = 0; index < 20; index++) {
       const [secret1, public1] = generate_keypair();

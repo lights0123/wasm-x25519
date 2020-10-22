@@ -30,6 +30,7 @@ fn encode_key(secret: &[u8]) -> JsString {
     from_utf8(b64_encode(secret, &mut encoded)).unwrap().into()
 }
 
+/// Calculate a shared secret from one party's secret key and another party's public key.
 #[wasm_bindgen(catch)]
 pub fn diffie_hellman(secret_key: &str, public_key: &str) -> Result<JsString, JsValue> {
     let mut secret = [0; KEY_SIZE];
