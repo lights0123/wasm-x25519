@@ -1,0 +1,31 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <script type="importmap">
+    {
+      "imports": {
+        "wasm_x25519": "./pkg/wasm_x25519.js"
+      }
+    }
+  </script>
+</head>
+
+<body id="body"></body>
+<script type="module">
+  import { generate_keypair, diffie_hellman, default as init } from 'wasm_x25519';
+
+  init('./pkg/wasm_x25519_bg.wasm').then(() => {
+    const start = new Date();
+    for (let index = 0; index < 20; index++) {
+      const [priv, pub] = generate_keypair();
+      const [priv2, pub2] = generate_keypair();
+      const sh1 = diffie_hellman(pub, priv2);
+      const sh2 = diffie_hellman(pub2, priv);
+
+      console.log(pub, pub2, sh1 === sh2, new Date() - start);
+    }
+  });
+</script>
+
+</html>
