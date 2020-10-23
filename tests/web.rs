@@ -17,3 +17,12 @@ extern "C" {
 fn pass() {
     log(&wasm_x25519::generate_keypair());
 }
+
+#[wasm_bindgen_test]
+fn base64() {
+    let x = &[1, 5, 176, 51][..];
+    assert_eq!(
+        &wasm_x25519::base64_decode(&wasm_x25519::base64_encode(x)).unwrap()[..],
+        x
+    );
+}

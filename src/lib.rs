@@ -43,6 +43,18 @@ pub fn diffie_hellman(secret_key: &str, public_key: &str) -> Result<JsString, Js
 }
 
 #[wasm_bindgen]
+pub fn base64_encode(data: &[u8]) -> String {
+    base64::encode(data)
+}
+
+#[wasm_bindgen(catch)]
+pub fn base64_decode(data: &str) -> Result<Box<[u8]>, JsValue> {
+    base64::decode(data)
+        .map_err(|_| JsError::new("Base64").into())
+        .map(Vec::into_boxed_slice)
+}
+
+#[wasm_bindgen]
 pub fn generate_keypair() -> KeyPair {
     let secret = StaticSecret::new(OsRng);
     let public = PublicKey::from(&secret);
