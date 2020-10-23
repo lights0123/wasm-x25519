@@ -63,3 +63,11 @@ pub fn generate_keypair() -> KeyPair {
     ret.set(1, encode_key(&public.to_bytes()).into());
     JsValue::from(ret).into()
 }
+
+#[wasm_bindgen]
+pub fn derive_public(secret_key: &str) -> Result<JsString, JsValue> {
+    let mut secret = [0; KEY_SIZE];
+    let _ = b64_decode(secret_key.as_bytes(), &mut secret).map_err(|_| JsError::new("Base64"))?;
+    let public = PublicKey::from(secret);
+    Ok(encode_key(&public.to_bytes()))
+}
