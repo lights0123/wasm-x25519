@@ -6,7 +6,7 @@
   "scripts": {
     "test": "node -r esm ./test.js"
   },
-  "author": "Łukasz Kurowski <crackcomm@gmail.com",
+  "author": "Łukasz Kurowski <crackcomm@gmail.com>",
   "license": "BSD-3-Clause",
   "devDependencies": {
     "esm": "^3.2.25"
