@@ -1,0 +1,17 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "node -r esm ./test.js"
+  },
+  "author": "Łukasz Kurowski <crackcomm@gmail.com>",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "esm": "^3.2.25"
+  },
+  "dependencies": {
+    "sodium-native": "^3.2.0"
+  }
+}
